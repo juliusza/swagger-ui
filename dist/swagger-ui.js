@@ -31814,6 +31814,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
   // puts the response data in UI
   showStatus: function(response) {
+
     var url, content;
     if (response.content === undefined) {
       content = response.data;
@@ -31849,14 +31850,21 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
     // JSON
     } else if (contentType === 'application/json' || /\+json$/.test(contentType)) {
-      var json = null;
+      var json = null, jsonObject = null;
       try {
-        json = JSON.stringify(JSON.parse(content), null, '  ');
+        jsonObject = JSON.parse(content);
+        json = JSON.stringify(jsonObject, null, '  ');
       } catch (_error) {
         json = 'can\'t parse JSON.  Raw result:\n\n' + content;
       }
       code = $('<code />').text(json);
       pre = $('<pre class="json" />').append(code);
+
+        // Fill auth inputs automatically
+        if (/\/authenticate$/.test(url)) {
+            $('#input_session').val(jsonObject.session).change();
+            $('#input_token').val(jsonObject.token).change();
+        }
 
     // XML
     } else if (contentType === 'application/xml' || /\+xml$/.test(contentType)) {
