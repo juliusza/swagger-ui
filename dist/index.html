@@ -77,10 +77,10 @@
         var session = $('#input_session')[0].value;
         var token = $('#input_token')[0].value;
         if(session && token) {
-            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("session", session, "header");
-            window.swaggerUi.api.clientAuthorizations.add("session", apiKeyAuth);
-            var tokenAuth = new SwaggerClient.ApiKeyAuthorization("token", token, "header");
-            window.swaggerUi.api.clientAuthorizations.add("token", tokenAuth);
+            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("x-session", session, "header");
+            window.swaggerUi.api.clientAuthorizations.add("x-session", apiKeyAuth);
+            var tokenAuth = new SwaggerClient.ApiKeyAuthorization("x-csrftoken", token, "header");
+            window.swaggerUi.api.clientAuthorizations.add("x-csrftoken", tokenAuth);
             log("added authentication keys");
         }
       }
