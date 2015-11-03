@@ -64,6 +64,11 @@
           });
 
           addApiKeyAuthorization();
+          var basePath = window.location.pathname;
+          if (basePath.endsWith("/")) {
+              basePath = basePath.substring(0, basePath.length - 1);
+          }
+          window.swaggerUi.api.setBasePath(basePath);
         },
         onFailure: function(data) {
           log("Unable to Load SwaggerUI");
@@ -72,6 +77,8 @@
         apisSorter: "alpha",
         showRequestHeaders: false
       });
+
+
 
       function addApiKeyAuthorization(){
         var session = $('#input_session')[0].value;
